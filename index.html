@@ -22,11 +22,11 @@
 					Name:<br />
 					<input type="text" name="name" ng-model="newReview.name" />
 					<br />
-					Title:<br />
-					<input type="text" name="title" ng-model="newReview.title" />
-					<br />
 					Rating:<br />
 					<rating max="5" ng-model="newReview.rating"></rating>
+					<br />
+					Title:<br />
+					<input type="text" name="title" ng-model="newReview.title" />
 					<br />
 					Comment:<br />
 					<textarea rows="4" cols="28" name="comment" ng-model="newReview.comment"></textarea>
@@ -58,8 +58,8 @@
                 <div ng-repeat="review in reviews" ng-if="reviews && !loading">
 					<div class="review">
 						<h3>{{review.title}}</h3>
-						<h4>{{review.name}}</h4>
 						<rating max="5" ng-model="review.rating" readonly="true"></rating>
+						<h4>{{review.name}}</h4>
 						<p>
 							{{review.comment}}
 						</p>
