@@ -54,7 +54,7 @@
                 as well as delete it
                  -->
 
-                <p ng-if="reviews == 0 && !loading">Be the first to review this product!</p>
+                <p ng-if="reviews == 0 && !loadingReviews">Be the first to review this product!</p>
                 <div ng-repeat="review in reviews" ng-if="reviews && !loading">
 					<div class="review">
 						<h3>{{review.title}}</h3>
