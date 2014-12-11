@@ -32,7 +32,7 @@
 					<textarea rows="4" cols="28" name="comment" ng-model="newReview.comment"></textarea>
 					<br />
 					<img ng-if="loadingPost" src="./img/ajax-spinner-sm.gif" alt="loading..." />
-					<button ng-click="submitReview()">Submit</button>
+					<button ng-disabled="loadingPost" ng-click="submitReview()">Submit</button>
 				</form>
 				
                 <!--  
@@ -70,7 +70,7 @@
 							<span class="votes_text"></span> {{review.votes}}
 						</div>
 
-						<button class="btn btn-danger delete_button" ng-click="deletePost(review)">Delete</button>
+						<button class="btn btn-danger delete-button" ng-click="deletePost(review)">Delete</button>
 					</div>
 					<hr/>
                 </div>

@@ -6,12 +6,13 @@
 
 var PARSE_PREFIX_REVIEWS = 'https://api.parse.com/1/classes/reviews/';
 
-angular.module("BassOMatic", [])
+angular.module("BassOMatic", ['ui.bootstrap'])
 	.config(function($httpProvider) {
 		$httpProvider.defaults.headers.common['X-Parse-Application-Id'] = "JcqsgPyOerGzr019tDy0KpCkg7El6lUORlmSXpEq";
 		$httpProvider.defaults.headers.common['X-Parse-REST-API-Key'] = "LIq9ui3Zhno7IPtiwJMTD1DTChqpV9jYcmhB0P2H";
 	})
 	.controller("CommentsController", function($scope, $http) {
+		
 		$scope.refreshReviews = function() {
 			$scope.loadingReviews = true;
 			$http.get(PARSE_PREFIX_REVIEWS)
@@ -33,6 +34,7 @@ angular.module("BassOMatic", [])
 		
 		$scope.submitReview = function() {
 			$scope.loadingPost = true;
+			
 			$http.post(PARSE_PREFIX_REVIEWS, $scope.newReview)
 				.success(function(responseData) {
 					$scope.newReview.objectId = responseData.objectId;
@@ -62,7 +64,10 @@ angular.module("BassOMatic", [])
 		
 		$scope.addVotes = function(review, value) {
 			$http.put(PARSE_PREFIX_REVIEWS + review.objectId, {
-				votes: review.votes + value,
+				votes : {
+					__op: 'Increment',
+					amount: value,
+				}
 			})
 				.success(function(data) {
 					console.log(data);

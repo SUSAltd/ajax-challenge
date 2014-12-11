@@ -5,6 +5,10 @@ body {
     font-weight: 400;
 }
 
+.delete-button {
+	margin-top: 5px;
+}
+
 .glyphicon {
 	cursor: default;
 }
