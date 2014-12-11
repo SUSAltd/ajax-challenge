@@ -4,7 +4,7 @@
     define your module and controllers here
 */
 
-var PARSE_PREFIX = 'https://api.parse.com/1/classes/';
+var PARSE_PREFIX_REVIEWS = 'https://api.parse.com/1/classes/reviews/';
 
 angular.module("BassOMatic", [])
 	.config(function($httpProvider) {
@@ -14,7 +14,7 @@ angular.module("BassOMatic", [])
 	.controller("CommentsController", function($scope, $http) {
 		$scope.refreshReviews = function() {
 			$scope.loadingReviews = true;
-			$http.get(PARSE_PREFIX + 'reviews')
+			$http.get(PARSE_PREFIX_REVIEWS)
 				.success(function(data) {
 					console.log(data);
 					$scope.reviews = data.results;
@@ -33,22 +33,44 @@ angular.module("BassOMatic", [])
 		
 		$scope.submitReview = function() {
 			$scope.loadingPost = true;
-			console.log($scope.newReview);
-			$http.post(PARSE_PREFIX + 'reviews', newReview)
+			$http.post(PARSE_PREFIX_REVIEWS, $scope.newReview)
 				.success(function(responseData) {
-					newReview.objectId = responseData.objectId;
+					$scope.newReview.objectId = responseData.objectId;
                     $scope.reviews.push($scope.newReview);
                     $scope.newReview = {
                         votes: 0
                     };
 				})
-				.err(function(err) {
+				.error(function(err) {
 					console.log(err);
 				})
 				.finally(function() {
 					$scope.loadingPost = false;
 				});
 			
+		};
+
+        $scope.deletePost = function(review) {
+            $http.delete(PARSE_PREFIX_REVIEWS + review.objectId)
+                .success(function(data) {
+                    $scope.refreshReviews();
+                })
+                .error(function(err) {
+                    console.log(err);
+                });
+        };
+		
+		$scope.addVotes = function(review, value) {
+			$http.put(PARSE_PREFIX_REVIEWS + review.objectId, {
+				votes: review.votes + value,
+			})
+				.success(function(data) {
+					console.log(data);
+					review.votes += value;
+				})
+				.error(function(err) {
+					console.log(err);
+				});
 		};
 		
 		$scope.refreshReviews();

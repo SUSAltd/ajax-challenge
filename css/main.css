@@ -5,9 +5,23 @@ body {
     font-weight: 400;
 }
 
+.glyphicon {
+	cursor: default;
+}
+
 .product-picture {
     float: left;
     height: 130px;
     margin-right: 10px;
 }
 
+.review {
+	border-left: 1px solid GRAY;
+	margin-left: 25px;
+	padding-bottom: 6px;
+	padding-left: 25px;
+}
+
+.vote-icon {
+	cursor: pointer;
+}

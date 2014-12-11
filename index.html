@@ -56,21 +56,23 @@
 
                 <p ng-if="reviews == 0 && !loading">Be the first to review this product!</p>
                 <div ng-repeat="review in reviews" ng-if="reviews && !loading">
-                    <h3>{{review.title}}</h3>
-					<h4>{{review.name}}</h4>
-                    <rating max="5" ng-model="review.rating" readonly="true"></rating>
-                    <p>
-                        {{review.comment}}
-                    </p>
+					<div class="review">
+						<h3>{{review.title}}</h3>
+						<h4>{{review.name}}</h4>
+						<rating max="5" ng-model="review.rating" readonly="true"></rating>
+						<p>
+							{{review.comment}}
+						</p>
 
-                    <div>
-                        <span class="votes_text">Was this review helpful? </span> {{review.votes || 0}}
-                        <span class="glyphicon glyphicon-thumbs-up glyph glyph-good" ng-click="incrementVotes(review, 1)"></span>
-                        <span class="glyphicon glyphicon-thumbs-down glyph glyph-bad" ng-click="incrementVotes(review, -1)"></span>
-                    </div>
+						<div>
+							<span class="glyphicon glyphicon-thumbs-up glyph glyph-good vote-icon" ng-click="addVotes(review, 1)"></span>
+							<span class="glyphicon glyphicon-thumbs-down glyph glyph-bad vote-icon" ng-click="addVotes(review, -1)"></span>
+							<span class="votes_text"></span> {{review.votes}}
+						</div>
 
-                    <button class="btn btn-danger delete_button" ng-click="deletePost(review)">Delete this post</button>
-                    <hr/>
+						<button class="btn btn-danger delete_button" ng-click="deletePost(review)">Delete</button>
+					</div>
+					<hr/>
                 </div>
             </section>
 
